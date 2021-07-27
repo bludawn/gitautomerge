@@ -169,7 +169,7 @@ end
 
 print("当前分支 : ", currentBranch)
 
-if currentBranch == "dev" or currentBranch == "test" or currentBranch == "master" then
+if currentBranch == "dev" or currentBranch == "test" or currentBranch == "master" or currentBranch == "review" then
     print("注意，不能在 dev,test,master 分支执行本脚本")
     return
 end
@@ -180,11 +180,12 @@ if string.find(ret, "nothing to commit") then
 else
     -- 执行git add
     execute('git add -A ./')
-
+    ret = execute('git status')
     -- 得到提交命令
     codePage(936)
     local msg = ''
     while #msg <= 0 do
+        print(A(ret))
         print(A("请输入提交日志："))
         msg = io.read()
         msg = string.gsub(msg, " ", "")
